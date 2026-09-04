@@ -53,19 +53,19 @@ A virtualized enterprise IT environment built to simulate real-world Tier 1/2 he
 *To view full documentation, refer to the `/screenshots` directory in this repository.*
 
 ### Active Directory Hierarchy & OUs
-![Active Directory Users and Computers](screenshots/aduc-structure.png)
+![Active Directory Users and Computers](./screenshots/aduc-structure.png)
 *Active Directory structure showing configured OUs, security groups, and created users.*
 
 ### Domain Join Verification
-![Domain Join Verification](screenshots/domain-join-whoami.png)
+![Domain Join Verification](./screenshots/domain-join-whoami.png)
 *Windows 11 workstation successfully bound to the domain, verified via `whoami` and `systeminfo`.*
 
 ### Group Policy Application
-![Group Policy gpresult](screenshots/gpresult-verification.png)
+![Group Policy gpresult](./screenshots/gpresult-verification.png)
 *Confirmation of linked GPOs successfully applied to the client machine via `gpresult /r`.*
 
 ### Action1 Endpoint & Patch Management
-![Action1 Vulnerability Dashboard](screenshots/action1-dashboard.png)
+![Action1 Vulnerability Dashboard](./screenshots/action1-dashboard.png)
 *Action1 web console showing connected endpoints, detected CVEs, and patch deployment status.*
 
 ---
