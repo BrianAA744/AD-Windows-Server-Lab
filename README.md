@@ -48,41 +48,37 @@ A virtualized enterprise IT environment built to simulate real-world Tier 1/2 he
 
 ---
 
-## 📸 Verification & Screenshots
+## 📸 Verification & Documentation
 
-*To view full documentation, refer to the `/screenshots` directory in this repository.*
-
-### Active Directory Hierarchy & OUs
+### 1. Active Directory Architecture & User Management
 ![Active Directory Users and Computers](./screenshots/aduc-structure.png)
-*Active Directory structure showing configured OUs, security groups, and created users.*
+*Active Directory Users and Computers (ADUC) interface displaying the custom `Departments` Organizational Unit, populated user accounts, and department-specific Global Security Groups.*
 
-### Domain Join Verification
+### 2. Workstation Domain Integration
 ![Domain Join Verification](./screenshots/domain-join-whoami.png)
-*Windows 11 workstation successfully bound to the domain, verified via `whoami` and `systeminfo`.*
+*Windows 11 client terminal output confirming domain membership in `brianaa.com` and administrative logon identity via `whoami` and `systeminfo`.*
 
-### Group Policy Application
-![Group Policy gpresult](./screenshots/gpresult-verification.png)
-*Confirmation of linked GPOs successfully applied to the client machine via `gpresult /r`.*
+### 3. Group Policy Enforcement
+![Group Policy Verification](./screenshots/gpresult-verification.png)
+*Diagnostic report (`gpresult /r`) on the Windows 11 endpoint confirming successful policy processing and enforcement from the primary Domain Controller (`RCH-ESSEX-01`).*
 
-### Action1 Endpoint & Patch Management
+### 4. Cloud RMM & Vulnerability Management
 ![Action1 Vulnerability Dashboard](./screenshots/action1-dashboard.png)
-*Action1 web console showing connected endpoints, detected CVEs, and patch deployment status.*
+*Action1 cloud dashboard tracking managed infrastructure endpoints, highlighting missing patches, CVSS risk scores, and overdue security CVEs on the Windows Server instance.*
 
 ---
 
 ## 🔧 Troubleshooting & Obstacles Encountered
-
-*(Note: Add your specific roadblocks and fixes below to showcase your troubleshooting methodology.)*
 
 * **Issue 1: Domain Controller Not Found During Windows 11 Domain Join**
   * *Symptom:* The Windows 11 client returned an error stating an Active Directory Domain Controller (AD DC) for the domain could not be contacted.
   * *Root Cause:* The client network adapter was using DHCP and pulling external DNS servers (like 8.8.8.8) rather than the local Domain Controller's IP address.
   * *Resolution:* Manually updated the IPv4 adapter settings on the client to assign the Domain Controller's static IP as the Primary DNS. Flushed DNS using `ipconfig /flushdns` and successfully joined the domain.
 
-* **Issue 2: [Add your second obstacle here]**
-  * *Symptom:* [Describe what went wrong]
-  * *Root Cause:* [Describe why it happened]
-  * *Resolution:* [Describe how you resolved it]
+* **Issue 2: Group Policy Update Failure via `gpupdate /force`**
+  * *Symptom:* The client returned an error: *"The processing of Group Policy failed because of lack of network connectivity to a domain controller."*
+  * *Root Cause:* Internal virtual network routing was temporarily interrupted between the hypervisor virtual adapters, breaking SMB/RPC access to the SYSVOL share.
+  * *Resolution:* Re-verified adapter modes, verified DNS resolution to `brianaa.com` via ICMP ping tests, and successfully applied both Computer and User policies.
 
 ---
 
